@@ -1,10 +1,11 @@
+using SistemaPaciente.Core.Application;
 using SistemaPaciente.Infraestructure.Persistance;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddPersistenceInfrastructure(builder.Configuration);
+builder.Services.AddApplicationLayer();
+builder.Services.AddPersistenceInfraestructure(builder.Configuration);
 var app = builder.Build();
 
 

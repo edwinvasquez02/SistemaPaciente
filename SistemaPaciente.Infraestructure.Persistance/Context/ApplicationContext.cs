@@ -11,10 +11,7 @@ namespace SistemaPaciente.Infraestructure.Persistence.Context
         {
 
         }
-        public ApplicationContext()
-        {
-            
-        }
+        
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())

@@ -1,0 +1,102 @@
+﻿@using SistemaPaciente.Core.Application.ViewModels.DoctorViewModels;
+
+@model SaveDoctorViewModel
+
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Save User";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class=" card">
+                <div class="card-header bg-primary text-light text-center">
+                    <h4>@(editMode ? $"Editando Doctor: {Model.Name}" : "Creando Un Doctor")</h4>
+                </div>
+                <div class="card-body">
+
+                    @if (editMode)
+                    {
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <div class="imagecenter">
+                                    <img src="@Model.ImageUrl" alt="Imagen" width="250" height="250" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    <form method="post" asp-controller="Doctor" asp-action="@(editMode ? "Update":"Create")" enctype="multipart/form-data">
+
+
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nombres: </label>
+                            <input type="text" asp-for="Name" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="form-label">Apellidos: </label>
+                            <input asp-for="LastName" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Identification" class="form-label">Cedula: </label>
+                            <input type="number" step="any" asp-for="Identification" class="form-control" autocomplete="off" oninput="this.value = this.value.slice(0, 11)" />
+                            <span asp-validation-for="Identification" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label asp-for="File" class="form-label">Seleccione la Foto del Doctor:</label>
+                            @if (editMode)
+                            {
+                                <input asp-for="File" class="form-control" />
+                            }
+                            else
+                            {
+                                <input required asp-for="File" class="form-control" />
+                            }
+
+                            <span asp-validation-for="File" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="PhoneNumber" class="form-label">Numero de Telefono: </label>
+                            <input asp-for="PhoneNumber" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Correo Electronico: </label>
+                            <input type="email" step="any" asp-for="Email" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+
+                      
+
+
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ImageUrl" />
+
+                        <button type="submit" class="btn btn-primary float-end ms-2">Guardar</button>
+                        <a asp-controller="Doctor" asp-action="Index" class="btn btn-warning float-end ">Volver atras</a>
+
+                    </form>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

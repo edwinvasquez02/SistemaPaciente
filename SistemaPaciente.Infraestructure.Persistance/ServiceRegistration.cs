@@ -1,18 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SistemaPaciente.Core.Application.Interfaces.Repositories;
 using SistemaPaciente.Infraestructure.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SistemaPaciente.Infraestructure.Persistence.Repositories;
 
 namespace SistemaPaciente.Infraestructure.Persistance
 {
     public static class ServiceRegistration
     {
-        public static void AddPersistenceInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static void AddPersistenceInfraestructure(this IServiceCollection services, IConfiguration configuration)
         {
             #region Contexts
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
@@ -25,7 +22,20 @@ namespace SistemaPaciente.Infraestructure.Persistance
                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                m => m.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
             }
-            #endregion       
+            #endregion
+
+            #region Repositories
+            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+            services.AddTransient<IUserRepository, UserRepositoryAsync>();
+            services.AddTransient<IRolRepository, RolRepository>();
+            services.AddTransient<IPatientReposity, PatientRepository>();
+            services.AddTransient<IDoctorRepository, DoctorRepository>();
+            services.AddTransient<ILabTestRepository, LabTestRepository>();
+            services.AddTransient<IAppoinmentStatusRepository, AppoinmentStatusRepository>();
+            services.AddTransient<IMedicalAppoinmentRepository, MedicalAppoinmentRepository>();
+            services.AddTransient<ILabResultRepository, LabResultRepository>();
+
+            #endregion
         }
     }
 }
