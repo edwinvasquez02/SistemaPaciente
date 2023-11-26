@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace SistemaPaciente.Core.Domain.Common
 {
-    internal class AuditableBaseEntity
+    public class AuditableBaseEntity
     {
+        public int Id { get; set; }
+        public string? CreatyBy { get; set; }
+        public DateTime Creaty { get; set; }
+        public string? LastModifiedBy { get; set; }
+        public DateTime LastModified { get; set; }
     }
 }

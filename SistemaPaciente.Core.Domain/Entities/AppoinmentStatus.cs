@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaPaciente.Core.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace SistemaPaciente.Core.Domain.Entities
 {
-    internal class AppoinmentStatus
+    public class AppoinmentStatus: AuditableBaseEntity
     {
+        public string Description { get; set; } = null!;
+
+        public ICollection<MedicalAppointment> MedicalAppointments { get; set; } = null!;
     }
 }

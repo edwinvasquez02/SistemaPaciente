@@ -1,6 +1,6 @@
-﻿using GestorDePacientes.Core.Domain.Common;
+﻿using SistemaPaciente.Core.Domain.Common;
 
-namespace GestorDePacientes.Core.Domain.Entities;
+namespace SistemaPaciente.Core.Domain.Entities;
 
 public class PatientLabTests : AuditableBaseEntity
 {
